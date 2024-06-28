@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Units.css";
+import axios from "axios";
 import Sidebar from "../navbar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import Resource from "../Resource/Resource";
@@ -11,9 +12,28 @@ function Units({ folders }) {
   const [delayedFolders, setDelayedFolders] = useState([]);
   const [parentFolder, setParentFolder] = useState("Subject");
   const [view, setView] = useState("units");
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     let timer;
+    let token = null;
+    const email = "n200232@rguktn.ac.in";
+    axios
+      .post(
+        "https://course-mate-server.onrender.com/user/getUserId",
+        { email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setUserId(response.data.userId);
+      })
+      .catch((error) => {
+        console.error("Cannot get user ID", error);
+      });
     const rootFolders = folders.filter(
       (folder) => folder.parentFolder === folderId
     );
@@ -92,7 +112,7 @@ function Units({ folders }) {
                 ))}
               </div>
             ) : (
-              <Resource />
+              <Resource parentFolder={folderId} uploadedBy={userId} />
             )}
           </div>
         </div>

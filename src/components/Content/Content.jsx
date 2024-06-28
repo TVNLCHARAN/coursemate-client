@@ -56,7 +56,7 @@ function Content() {
       );
       const rootDocs = response.data;
       setDocs(rootDocs);
-      setDelayedDocs([]); // Clear previous delayed docs
+      setDelayedDocs([]);
       rootDocs.forEach((doc, index) => {
         setTimeout(() => {
           setDelayedDocs((prevDocs) => [...prevDocs, doc]);
@@ -93,7 +93,7 @@ function Content() {
 
     if (!billFile) {
       setErrorMessage("Please select a file");
-      setIsLoading(false); // Ensure loading state is reset
+      setIsLoading(false);
       return;
     }
 
@@ -108,13 +108,13 @@ function Content() {
       setErrorMessage(
         "Invalid file type. Only PDF, PPT, PPTX, DOC, and DOCX files are allowed."
       );
-      setIsLoading(false); // Ensure loading state is reset
+      setIsLoading(false);
       return;
     }
 
     if (billFile.size > 30 * 1024 * 1024) {
       setErrorMessage("File is too large. Maximum size allowed is 30MB.");
-      setIsLoading(false); // Ensure loading state is reset
+      setIsLoading(false);
       return;
     }
 
@@ -190,7 +190,7 @@ function Content() {
     } else if (["doc", "docx"].includes(extension)) {
       return "/favicons/doc.png";
     } else {
-      return "/favicons/default.png"; // Fallback for other file types
+      return "/favicons/default.png";
     }
   };
 
