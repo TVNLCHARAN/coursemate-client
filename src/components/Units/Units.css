@@ -43,7 +43,6 @@
 }
 
 .blinking-text-units {
-  /* display: inline-block; */
   animation: blink1 1.5s linear infinite;
 }
 
@@ -77,8 +76,6 @@ h1 span {
   z-index: 2;
   font-size: 84px;
   white-space: nowrap;
-  /* border-right: 3px solid rgba(255, 255, 255, 0.75); */
-  /* animation: typing 2.5s steps(40, end) 3s forwards infinite; */
   width: 0;
 }
 
@@ -122,7 +119,6 @@ h1 span {
   position: relative;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
-  /* backdrop-filter: blur(2px); */
   height: 100%;
   top: 0;
   right: 0;
@@ -136,7 +132,30 @@ h1 span {
   padding: 20px;
 }
 
-.content {
+.content-units,
+.content-resources {
   width: 100%;
   max-width: 1200px;
+}
+
+.button-group {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button-group .btn {
+  background-color: #6f00ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Caveat", cursive;
+  font-size: 24px;
+}
+
+.button-group .btn:hover,
+.button-group .btn.active {
+  background-color: #4b0082;
 }

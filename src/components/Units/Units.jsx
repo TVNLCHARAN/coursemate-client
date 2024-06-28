@@ -9,6 +9,7 @@ function Units({ folders }) {
   const { folderId, imgSrc } = location.state;
   const [delayedFolders, setDelayedFolders] = useState([]);
   const [parentFolder, setParentFolder] = useState("Subject");
+  const [view, setView] = useState("units");
 
   useEffect(() => {
     let timer;
@@ -53,27 +54,41 @@ function Units({ folders }) {
             >
               {parentFolder}
             </h1>
-            <div className="content-units text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
-              {delayedFolders.map((folder) => (
-                <div
-                  key={folder._id}
-                  className="units-div d-flex rounded-3 fw-bold text-white lead p-4 justify-content-evenly"
-                  onClick={() => handleFolderClick(folder._id)}
-                >
-                  <div className="w-25 text-end align-items-end">
-                    <img
-                      className="text-start"
-                      src="/bing/folder1.png"
-                      alt=""
-                      height={"40px"}
-                    />
-                  </div>
-                  <div className="w-75 text-start px-3 px-5 align-items-start">
-                    {folder.name}
-                  </div>
-                </div>
-              ))}
+            <div className="btn-group text-center">
+              <button className={`btn`} onClick={() => setView("units")}>
+                Units
+              </button>
+              <button className={`btn`} onClick={() => setView("resources")}>
+                Resources
+              </button>
             </div>
+            {view === "units" ? (
+              <div className="content-units text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
+                {delayedFolders.map((folder) => (
+                  <div
+                    key={folder._id}
+                    className="units-div d-flex rounded-3 fw-bold text-white lead p-4 justify-content-evenly"
+                    onClick={() => handleFolderClick(folder._id)}
+                  >
+                    <div className="w-25 text-end align-items-end">
+                      <img
+                        className="text-start"
+                        src="/bing/folder1.png"
+                        alt=""
+                        height={"40px"}
+                      />
+                    </div>
+                    <div className="w-75 text-start px-3 px-5 align-items-start">
+                      {folder.name}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="content-resources text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
+                <p className="text-white lead">Resources</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
