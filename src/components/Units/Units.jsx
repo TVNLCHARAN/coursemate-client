@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Units.css";
 import Sidebar from "../navbar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
+import Resource from "../Resource/Resource";
 
 function Units({ folders }) {
   const location = useLocation();
@@ -91,9 +92,7 @@ function Units({ folders }) {
                 ))}
               </div>
             ) : (
-              <div className="content-resources text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
-                <p className="text-white lead">Resources</p>
-              </div>
+              <Resource />
             )}
           </div>
         </div>
