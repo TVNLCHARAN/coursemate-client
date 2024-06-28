@@ -66,7 +66,10 @@ function Sidebar() {
           <li className="sidebar-item mt-3 text-start ms-2">
             <NavLink to="/notifications" className="sidebar-link">
               {/* <GoHomeFill className='fs-3 text-white'/> */}
-              <img src="/favicons/message1.png" height={"32px"} alt="" />
+              <div style={{ display: "inline" }}>
+                <div className="notify"></div>
+                <img src="/favicons/message1.png" height={"32px"} alt="" />
+              </div>
               <span className="ms-3 fw-bold">Notifications</span>
             </NavLink>
           </li>

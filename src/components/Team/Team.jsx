@@ -66,7 +66,12 @@ const Team = () => {
           </div>
           <div className="profile-card col-12 col-md-6 order-1 shrink">
             <div className="img">
-              <img className="person" src="/favicons/siva3.png" alt="Profile" />
+              <img
+                className="person"
+                src="/favicons/siva4.png"
+                alt="Profile"
+                style={{ marginBottom: "150px" }}
+              />
             </div>
             <div className="caption mb-5">
               <h2 className="blinking-text-team">Siva Shankar</h2>
