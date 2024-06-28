@@ -55,10 +55,16 @@ function Units({ folders }) {
               {parentFolder}
             </h1>
             <div className="btn-group text-center">
-              <button className={`btn`} onClick={() => setView("units")}>
+              <button
+                className={`btn ${view === "units" ? "active" : ""}`}
+                onClick={() => setView("units")}
+              >
                 Units
               </button>
-              <button className={`btn`} onClick={() => setView("resources")}>
+              <button
+                className={`btn ${view === "resources" ? "active" : ""}`}
+                onClick={() => setView("resources")}
+              >
                 Resources
               </button>
             </div>
