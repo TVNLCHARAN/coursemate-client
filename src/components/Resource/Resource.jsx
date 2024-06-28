@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Resource.css";
+import { Button, Modal, Form } from "react-bootstrap";
 
 const resources = [
   {
@@ -67,6 +68,18 @@ const resources = [
 ];
 
 function Resource() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+    // Reset form fields and close modal as needed
+    setShowModal(false);
+  };
+
   return (
     <div>
       {resources.map((resource) => (
@@ -80,6 +93,43 @@ function Resource() {
           </div>
         </div>
       ))}
+
+      {/* Button to trigger modal */}
+      <div className="add-button-container">
+        <button className="add-button" onClick={handleModalShow}>
+          +
+        </button>
+      </div>
+
+      {/* Modal for adding new resource */}
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Resource</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter name" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Enter description"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formLink">
+              <Form.Label>Link</Form.Label>
+              <Form.Control type="text" placeholder="Enter link" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
