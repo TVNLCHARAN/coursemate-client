@@ -102,7 +102,7 @@ function Resource() {
       </div>
 
       {/* Modal for adding new resource */}
-      <Modal show={showModal} onHide={handleModalClose}>
+      <Modal show={showModal} onHide={handleModalClose} className="modal">
         <Modal.Header closeButton>
           <Modal.Title>Add New Resource</Modal.Title>
         </Modal.Header>
