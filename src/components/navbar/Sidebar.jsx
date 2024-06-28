@@ -64,7 +64,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/home" className="sidebar-link">
+            <NavLink to="/notifications" className="sidebar-link">
               {/* <GoHomeFill className='fs-3 text-white'/> */}
               <img src="/favicons/message1.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Notifications</span>

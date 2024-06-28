@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Notification.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import Sidebar from "../navbar/Sidebar";
 
 const Notification = () => {
   const [Notifications, setNotifications] = useState([
@@ -16,9 +17,8 @@ const Notification = () => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await axios.post(
-        "https://course-mate-server.onrender.com/resource/folder",
-        { folderId: parentFolder }
+      const response = await axios.get(
+        "https://course-mate-server.onrender.com/resource/resources"
       );
 
       if (response.status === 200) {
@@ -44,7 +44,15 @@ const Notification = () => {
   return (
     <>
       <div>
-        <div className="blur1"></div>
+        <Sidebar />
+        <h1
+          className="display-3 text-center text-white blinking-text-notify"
+          style={{ zIndex: 100, marginTop: "60px" }}
+        >
+          Notifications
+        </h1>
+        <div className="notifications-img"></div>
+        <div className="blur-notify"></div>
         {Notifications.map((Notification) => (
           <div key={Notification._id} className="Notification-div">
             <div className="Notification-content">
@@ -59,7 +67,7 @@ const Notification = () => {
                   href={Notification.rscLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "yellow" }}
+                  style={{ color: "red" }}
                 >
                   {Notification.rscLink}
                 </a>
