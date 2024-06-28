@@ -7,7 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Resource = ({ parentFolder, uploadedBy }) => {
   const [showModal, setShowModal] = useState(false);
-  const [resources, setResources] = useState([{uploadedBy: "Loading...", name: "", _id: "", description: "", rscLink: ""}]);
+  const [resources, setResources] = useState([
+    {
+      uploadedBy: "Loading...",
+      name: "",
+      _id: "",
+      description: "",
+      rscLink: "",
+      uploadedAt: "",
+    },
+  ]);
   const [isPosted, setIsPosted] = useState(true);
 
   const fetchResources = async () => {
