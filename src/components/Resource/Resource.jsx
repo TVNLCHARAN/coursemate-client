@@ -7,32 +7,32 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Resource = ({ parentFolder, uploadedBy }) => {
   const [showModal, setShowModal] = useState(false);
-  const [resources, setResources] = useState([]);
+  const [resources, setResources] = useState([{uploadedBy: "Loading...", name: "", _id: "", description: "", rscLink: ""}]);
+  const [isPosted, setIsPosted] = useState(true);
 
-  useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const response = await axios.post(
-          "https://course-mate-server.onrender.com/resource/folder",
-          { folderId: parentFolder }
+  const fetchResources = async () => {
+    try {
+      const response = await axios.post(
+        "https://course-mate-server.onrender.com/resource/folder",
+        { folderId: parentFolder }
+      );
+
+      if (response.status === 200) {
+        const sortedResources = response.data.sort((a, b) =>
+          b.uploadedAt.localeCompare(a.uploadedAt)
         );
-
-        if (response.status === 200) {
-          const sortedResources = response.data.sort((a, b) =>
-            b.uploadedAt.localeCompare(a.uploadedAt)
-          );
-          setResources(sortedResources);
-        } else {
-          toast.error("Failed to fetch resources. Please try again later.");
-        }
-      } catch (error) {
-        console.error("Error fetching resources:", error);
+        setResources(sortedResources);
+      } else {
         toast.error("Failed to fetch resources. Please try again later.");
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching resources:", error);
+      toast.error("Failed to fetch resources. Please try again later.");
+    }
+  };
+  useEffect(() => {
     fetchResources();
-  }, [parentFolder]);
+  }, [isPosted]);
 
   const handleModalClose = () => setShowModal(false);
   const handleModalShow = () => setShowModal(true);
@@ -57,9 +57,10 @@ const Resource = ({ parentFolder, uploadedBy }) => {
 
       if (response.status === 201) {
         console.log(response.status);
-        toast.success("Resource added successfully!");
         setShowModal(false);
         fetchResources();
+        setIsPosted(!isPosted);
+        toast.success("Resource added successfully!");
       } else {
         toast.error("Failed to add resource. Please try again later.");
       }
