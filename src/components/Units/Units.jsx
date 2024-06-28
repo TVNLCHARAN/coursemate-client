@@ -47,7 +47,7 @@ function Units({ folders }) {
         <div className="units-img"></div>
         <div>
           <Sidebar />
-          <div className="outer-container-units">
+          <div className="outer-container-units text-center">
             <h1
               className="display-3 text-center text-white blinking-text-units"
               style={{ zIndex: 100 }}
