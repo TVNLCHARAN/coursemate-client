@@ -124,9 +124,9 @@ function Resource() {
               <Form.Label>Link</Form.Label>
               <Form.Control type="text" placeholder="Enter link" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <button className="btn btn-outline-warning" type="submit">
               Submit
-            </Button>
+            </button>
           </Form>
         </Modal.Body>
       </Modal>
