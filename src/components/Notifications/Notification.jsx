@@ -62,7 +62,7 @@ const Notification = () => {
               <p>Name: {Notification.name}</p>
               <p>{Notification.description}</p>
               <p>
-                Link:{" "}
+                Link:{""}
                 <a
                   href={Notification.rscLink}
                   target="_blank"
