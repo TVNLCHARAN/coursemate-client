@@ -33,9 +33,14 @@ const Resource = ({ parentFolder, uploadedBy }) => {
       );
 
       if (response.status === 200) {
-        const sortedResources = response.data.sort((a, b) =>
+        let sortedResources = response.data.sort((a, b) =>
           b.uploadedAt.localeCompare(a.uploadedAt)
         );
+        sortedResources = sortedResourcesfilter((resource) => {
+          if (!resource.byAdmin) {
+            return true;
+          } else return false;
+        });
         setResources(sortedResources);
       } else {
         toast.error("Failed to fetch resources. Please try again later.");
