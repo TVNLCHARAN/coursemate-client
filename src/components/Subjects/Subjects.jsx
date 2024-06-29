@@ -4,11 +4,11 @@ import Sidebar from "../navbar/Sidebar";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function Subjects() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const { folderId, folders } = location.state;
+  const { folderId, folders } = location.state || {};
   const [delayedFolders, setDelayedFolders] = useState([]);
   const [user, setUser] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -16,6 +16,11 @@ function Subjects() {
       setUser(storedUser);
     } else {
       navigate("/");
+    }
+
+    if (!folderId) {
+      navigate("/home");
+      return;
     }
 
     let timer;
@@ -31,7 +36,7 @@ function Subjects() {
     return () => {
       clearTimeout(timer);
     };
-  }, [folders, folderId]);
+  }, [folders, folderId, navigate]);
 
   const handleClick = (folderId, imgSrc) => {
     navigate("/units", { state: { folderId, imgSrc } });

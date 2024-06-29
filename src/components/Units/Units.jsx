@@ -8,10 +8,11 @@ import Resource from "../Resource/Resource";
 function Units({ folders }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { folderId, imgSrc } = location.state;
+  const { folderId, imgSrc } = location.state || {};
   const [delayedFolders, setDelayedFolders] = useState([]);
   const [parentFolder, setParentFolder] = useState("Subject");
   const [view, setView] = useState("units");
+  const [user, setUser] = useState(false);
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -21,8 +22,13 @@ function Units({ folders }) {
     } else {
       navigate("/");
     }
+
+    if (!folderId) {
+      navigate("/");
+      return;
+    }
+
     let timer;
-    let token = null;
     const email = "n200232@rguktn.ac.in";
     axios
       .post(
@@ -40,17 +46,21 @@ function Units({ folders }) {
       .catch((error) => {
         console.error("Cannot get user ID", error);
       });
+
     const rootFolders = folders.filter(
       (folder) => folder.parentFolder === folderId
     );
 
-    const sortedFolders = rootFolders.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
+    const sortedFolders = rootFolders.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
 
-    setParentFolder(folders.find((folder) => folder._id === folderId).name);
+    const parent = folders.find((folder) => folder._id === folderId);
+    if (parent) {
+      setParentFolder(parent.name);
+    } else {
+      console.error("Parent folder not found");
+    }
 
     sortedFolders.forEach((folder, index) => {
       timer = setTimeout(() => {
@@ -61,7 +71,7 @@ function Units({ folders }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [folders, folderId]);
+  }, [folders, folderId, navigate]);
 
   const handleFolderClick = (folderId) => {
     navigate("/content", { state: { folderId, imgSrc } });
@@ -127,7 +137,7 @@ function Units({ folders }) {
           </div>
         </>
       ) : (
-        <p className="display-1 text-white"></p>
+        <p className="display-1 text-white">You Have No Access</p>
       )}
     </div>
   );
