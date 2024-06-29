@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Team.css";
 import Sidebar from "../navbar/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const Team = () => {
+  const [user, setUser] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const storedUser = localStorage.getItem("user") || false;
     if (storedUser) {

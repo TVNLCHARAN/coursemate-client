@@ -30,6 +30,7 @@ function Units({ folders }) {
 
     let timer;
     const email = "n200232@rguktn.ac.in";
+    let token = localStorage.getItem("user");
     axios
       .post(
         "https://course-mate-server.onrender.com/user/getUserId",
@@ -137,7 +138,7 @@ function Units({ folders }) {
           </div>
         </>
       ) : (
-        <p className="display-1 text-white">You Have No Access</p>
+        <p className="display-1 text-white"></p>
       )}
     </div>
   );

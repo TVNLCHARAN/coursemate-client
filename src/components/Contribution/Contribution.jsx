@@ -10,6 +10,7 @@ const Contribution = () => {
   const [contributions, setContributions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSlow, setIsSlow] = useState(false);
+  const [user, setUser] = useState(false);
   const navigate = useNavigate();
 
   const fetchContributions = async () => {
