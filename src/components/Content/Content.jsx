@@ -99,6 +99,18 @@ function Content() {
       return;
     }
 
+    const existingFile = docs.find(
+      (doc) => doc.name.toLowerCase() === billFile.name.toLowerCase()
+    );
+    if (existingFile) {
+      toast.error(
+        "File with the same name exists. Please upload a different file."
+      );
+      setIsFileSet(true);
+      setIsLoading(false);
+      return;
+    }
+
     const allowedTypes = [
       "application/pdf",
       "application/vnd.ms-powerpoint",
@@ -137,7 +149,6 @@ function Content() {
       );
 
       const { name, fileId, viewLink, downloadLink } = response.data;
-      toast.success("File uploaded to Google Drive!");
 
       const params = {
         name,
