@@ -12,7 +12,7 @@ function Sidebar() {
   useEffect(() => {
     try {
       const email = jwtDecode(localStorage.getItem("user")).email;
-      setUsername(email.slice(0, 7).toUpperCase());
+      setUsername(email.split("@")[0].toUpperCase());
     } catch (error) {
       console.error(error);
     }
