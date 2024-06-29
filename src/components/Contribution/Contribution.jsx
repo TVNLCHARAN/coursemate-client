@@ -60,27 +60,29 @@ const Contribution = () => {
         <div className="blur-notify"></div>
         <div className="blur-notify"></div>
         <div className="blur-notify"></div>
-        {contributions.map((contribution, index) => (
-          <div key={contribution._id} className="contribution-div">
-            <div className="d-inline">
+        <div className="contributions-container">
+          {contributions.map((contribution, index) => (
+            <div key={contribution._id} className="contribution-div">
               <img
-                className="ms-2"
+                className="medal-image"
                 src={getMedalImage(index)}
                 alt=""
                 height="40px"
                 width="40px"
               />
+              <div className="name-div">
+                <p className="fw-bold username">
+                  {contribution.username}
+                </p>
+              </div>
+              <div className="totaluploaded-div">
+                <p className="totaluploaded">
+                  {contribution.totalUploaded}
+                </p>
+              </div>
             </div>
-            <div className="d-inline ms-2 text-end name-div">
-              <p className="fw-bold col-8 d-inline text-start">
-                Name: {contribution.username}
-              </p>
-              <p className="col-4 d-inline text-end ms-auto">
-                {contribution.totalUploaded}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
