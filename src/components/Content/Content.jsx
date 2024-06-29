@@ -19,6 +19,7 @@ function Content() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -56,6 +57,7 @@ function Content() {
       );
       const rootDocs = response.data;
       setDocs(rootDocs);
+      setLoading(false);
       setDelayedDocs([]);
       rootDocs.forEach((doc, index) => {
         setTimeout(() => {
@@ -193,6 +195,15 @@ function Content() {
       return "/favicons/default.png";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p className="lead text-white m-3 loading">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div>

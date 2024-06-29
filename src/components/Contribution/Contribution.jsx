@@ -70,13 +70,11 @@ const Contribution = () => {
                 height="40px"
                 width="40px"
               />
-              <div className="name-div">
-                <p className="fw-bold username">
-                  {contribution.username}
-                </p>
+              <div className="name-div ms-3 ps-3">
+                <p className="fw-bold username">{contribution.username}</p>
               </div>
-              <div className="totaluploaded-div">
-                <p className="totaluploaded">
+              <div className="totaluploaded-div ">
+                <p className="totaluploaded text-white fw-bold">
                   {contribution.totalUploaded}
                 </p>
               </div>
