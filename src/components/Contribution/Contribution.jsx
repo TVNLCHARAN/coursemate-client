@@ -49,9 +49,9 @@ const Contribution = () => {
 
   if (loading) {
     return (
-      <div className="loading-container">
+      <div className="loading-container1">
         <div className="loading-spinner-leaderboard"></div>
-        <p className="lead text-white m-3 loading">Loading...</p>
+        <p className="lead text-white m-3 loading1">Loading...</p>
       </div>
     );
   }

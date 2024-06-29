@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../navbar/Sidebar";
 
 const Notification = () => {
+  const [loading, setLoading] = useState(true);
   const [Notifications, setNotifications] = useState([
     {
       uploadedBy: "Loading...",
@@ -30,7 +31,7 @@ const Notification = () => {
         const sortedNotifications = data.sort((a, b) =>
           b.uploadedAt.localeCompare(a.uploadedAt)
         );
-
+        setLoading(false);
         setNotifications(sortedNotifications);
       }
     } catch (error) {
@@ -41,6 +42,14 @@ const Notification = () => {
     fetchNotifications();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner-notification"></div>
+        <p className="lead text-white m-3 loading">Loading...</p>
+      </div>
+    );
+  }
   return (
     <>
       <div>
