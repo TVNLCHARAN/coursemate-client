@@ -32,7 +32,6 @@ function Sem({ folders }) {
   }, [folders]);
 
   const handleClick = (folderId, imgSrc) => {
-    console.error(folderId);
     navigate("/subjects", { state: { folderId, imgSrc, folders } });
   };
 

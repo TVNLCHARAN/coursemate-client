@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 function Content() {
   const location = useLocation();
-  let folderId = null;
+  let { folderId } = location.state;
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [docs, setDocs] = useState([]);
@@ -160,15 +160,15 @@ function Content() {
       );
 
       const { name, fileId, viewLink, downloadLink } = response.data;
-
       const params = {
         name,
         fileId,
         viewLink,
         downloadLink,
-        parentFolder: folderId,
+        parentFolder: folderId || location.state.folderId,
         uploadedBy: userId,
       };
+      console.error(params);
 
       axios
         .post(
