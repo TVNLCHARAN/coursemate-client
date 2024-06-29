@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Content() {
   const location = useLocation();
-  const { folderId } = location.state;
+  const folderId = null;
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [docs, setDocs] = useState([]);
@@ -21,6 +21,7 @@ function Content() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("user")) || null;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user") || false;
@@ -28,6 +29,9 @@ function Content() {
       setUser(storedUser);
     } else {
       navigate("/");
+    }
+    if (location.state) {
+      folderId = location.state.folderId;
     }
     const email = "n200232@rguktn.ac.in";
     axios
@@ -49,7 +53,6 @@ function Content() {
   }, []);
 
   const fetchDocuments = async () => {
-    const token = JSON.parse(localStorage.getItem("user"));
     try {
       const response = await axios.post(
         "https://course-mate-server.onrender.com/document/folder",
@@ -86,6 +89,9 @@ function Content() {
   };
 
   useEffect(() => {
+    if (!folderId) {
+      navigate("/");
+    }
     fetchDocuments();
   }, [isUploaded]);
 
@@ -141,7 +147,6 @@ function Content() {
     formData.append("file", billFile);
 
     try {
-      const token = JSON.parse(localStorage.getItem("user"));
       const response = await axios.post(
         "https://course-mate-server.onrender.com/document/upload",
         formData,
