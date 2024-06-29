@@ -36,7 +36,7 @@ const Resource = ({ parentFolder, uploadedBy }) => {
         let sortedResources = response.data.sort((a, b) =>
           b.uploadedAt.localeCompare(a.uploadedAt)
         );
-        sortedResources = sortedResourcesfilter((resource) => {
+        sortedResources = sortedResources.filter((resource) => {
           if (!resource.byAdmin) {
             return true;
           } else return false;
