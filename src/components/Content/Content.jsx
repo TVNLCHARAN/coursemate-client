@@ -175,7 +175,6 @@ function Content() {
           setBillFile(null);
           setErrorMessage("");
           toast.success("File saved successfully!");
-          console.log(response.data);
         })
         .catch((error) => {
           console.error("Cannot save the document", error);

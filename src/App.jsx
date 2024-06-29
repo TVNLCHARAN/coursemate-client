@@ -13,10 +13,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Notification from "./components/Notifications/Notification";
 import Contribution from "./components/Contribution/Contribution";
-import useClickSound from './components/SoundHook/useClickSound';
-import clickSoundFile from './click.mp3';
+import useClickSound from "./components/SoundHook/useClickSound";
+import clickSoundFile from "./click.mp3";
 function App() {
-  useClickSound(clickSoundFile, ['.wrapper', '.sidebar-nav']);
+  useClickSound(clickSoundFile, [".wrapper", ".sidebar-nav"]);
   const [folders, setFolders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSlow, setIsSlow] = useState(false);
@@ -37,7 +37,6 @@ function App() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("There was an error fetching the folders!", error);
         setLoading(false);
       });
   }, []);

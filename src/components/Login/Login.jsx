@@ -7,7 +7,6 @@ function Login() {
   const navigate = useNavigate();
 
   function handleCallbackResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
     const email = jwtDecode(response.credential).email;
     const emails = [
       "n200232@rguktn.ac.in",

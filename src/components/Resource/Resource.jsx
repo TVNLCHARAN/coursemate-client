@@ -48,7 +48,6 @@ const Resource = ({ parentFolder, uploadedBy }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Modal submitted");
 
     const formData = {
       name: event.target.formName.value,
@@ -65,7 +64,6 @@ const Resource = ({ parentFolder, uploadedBy }) => {
       );
 
       if (response.status === 201) {
-        console.log(response.status);
         setShowModal(false);
         fetchResources();
         setIsPosted(!isPosted);
