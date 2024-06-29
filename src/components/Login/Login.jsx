@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
@@ -8,8 +8,6 @@ import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [isSlow, setIsSlow] = useState(false);
 
   function handleCallbackResponse(response) {
     const token = response.credential;
@@ -72,59 +70,20 @@ function Login() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSlow(true);
-    }, 5000);
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "886564988858-7ndnqcjaht1j2oddkcmdj8drlfkprmkf.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
 
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id:
-          "886564988858-7ndnqcjaht1j2oddkcmdj8drlfkprmkf.apps.googleusercontent.com",
-        callback: handleCallbackResponse,
-      });
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
 
-      google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-        theme: "outline",
-        size: "large",
-      });
-
-      google.accounts.id.prompt();
-      setLoading(false);
-      clearTimeout(timer);
-    } else {
-      return (
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p className="lead text-white m-3 loading">Loading...</p>
-          {isSlow ? (
-            <p className="text-white m-3 loading">
-              Server is Busy! Please wait...
-            </p>
-          ) : (
-            <p></p>
-          )}
-        </div>
-      );
-    }
-
-    return () => clearTimeout(timer);
+    google.accounts.id.prompt();
   }, [navigate]);
-
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p className="lead text-white m-3 loading">Loading...</p>
-        {isSlow ? (
-          <p className="text-white m-3 loading">
-            Server is Busy! Please wait...
-          </p>
-        ) : (
-          <p></p>
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="login-container">
