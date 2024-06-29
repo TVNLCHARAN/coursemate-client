@@ -12,11 +12,17 @@ const Contribution = () => {
   const [isSlow, setIsSlow] = useState(false);
   const [user, setUser] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("user") || null;
 
   const fetchContributions = async () => {
     try {
       const response = await axios.get(
-        "https://course-mate-server.onrender.com/user/users"
+        "https://course-mate-server.onrender.com/user/users",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response.status === 200) {

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Resource = ({ parentFolder, uploadedBy }) => {
+  const token = localStorage.getItem("user") || null;
   const [showModal, setShowModal] = useState(false);
   const [resources, setResources] = useState([
     {
@@ -23,7 +24,12 @@ const Resource = ({ parentFolder, uploadedBy }) => {
     try {
       const response = await axios.post(
         "https://course-mate-server.onrender.com/resource/folder",
-        { folderId: parentFolder }
+        { folderId: parentFolder },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -60,7 +66,12 @@ const Resource = ({ parentFolder, uploadedBy }) => {
     try {
       const response = await axios.post(
         "https://course-mate-server.onrender.com/resource/create",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response.status === 201) {

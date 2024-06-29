@@ -13,6 +13,7 @@ function Units({ folders }) {
   const [parentFolder, setParentFolder] = useState("Subject");
   const [view, setView] = useState("units");
   const [user, setUser] = useState(false);
+  const token = localStorage.getItem("user") || null;
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -30,7 +31,6 @@ function Units({ folders }) {
 
     let timer;
     const email = "n200232@rguktn.ac.in";
-    let token = localStorage.getItem("user");
     axios
       .post(
         "https://course-mate-server.onrender.com/user/getUserId",

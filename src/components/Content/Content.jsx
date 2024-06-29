@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Content() {
   const location = useLocation();
-  const folderId = null;
+  let folderId = null;
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [docs, setDocs] = useState([]);
@@ -21,7 +21,7 @@ function Content() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("user")) || null;
+  const token = localStorage.getItem("user") || null;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user") || false;

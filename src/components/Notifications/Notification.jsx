@@ -10,6 +10,7 @@ const Notification = () => {
   const [isSlow, setIsSlow] = useState(false);
   const [user, setUser] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("user") || null;
   const [Notifications, setNotifications] = useState([
     {
       uploadedBy: "Loading...",
@@ -23,7 +24,12 @@ const Notification = () => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "https://course-mate-server.onrender.com/resource/resources"
+        "https://course-mate-server.onrender.com/resource/resources",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response.status === 200) {
