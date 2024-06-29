@@ -25,7 +25,7 @@ function App() {
     setTimeout(() => {
       setIsSlow(true);
     }, 2000);
-    const token = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("user");
     axios
       .get("https://course-mate-server.onrender.com/folder/folders", {
         headers: {
