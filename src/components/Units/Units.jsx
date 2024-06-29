@@ -31,7 +31,7 @@ function Units({ folders }) {
     }
 
     let timer;
-    const email = jwtDecode(localStorage.getItem("user")).email;
+    const email = jwtDecode(token).email;
     axios
       .post(
         "https://course-mate-server.onrender.com/user/getUserId",

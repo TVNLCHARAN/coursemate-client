@@ -5,6 +5,7 @@ import Sidebar from "../navbar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jwtDecode } from "jwt-decode";
 
 function Content() {
   const location = useLocation();
@@ -33,7 +34,7 @@ function Content() {
     if (location.state) {
       folderId = location.state.folderId;
     }
-    const email = "n200232@rguktn.ac.in";
+    const email = jwtDecode(token).email;
     axios
       .post(
         "https://course-mate-server.onrender.com/user/getUserId",
