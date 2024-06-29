@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Login() {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log(jwtDecode(token));
           localStorage.setItem("user", JSON.stringify(token));
           navigate("/home");
         }

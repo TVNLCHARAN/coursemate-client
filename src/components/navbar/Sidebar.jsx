@@ -8,11 +8,14 @@ import { jwtDecode } from "jwt-decode";
 function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [username, setUsername] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     try {
-      const email = jwtDecode(localStorage.getItem("user")).email;
+      const user = jwtDecode(localStorage.getItem("user"));
+      const email = user.email;
       setUsername(email.split("@")[0].toUpperCase());
+      setProfile(user.picture);
     } catch (error) {
       console.error(error);
     }
@@ -21,8 +24,7 @@ function Sidebar() {
   const clickSound = new Audio("/nav.aac");
 
   function handleLogOut() {
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("username");
+    localStorage.removeItem("user");
     playClickSound();
   }
 
@@ -44,7 +46,20 @@ function Sidebar() {
             <h5 className="mt-2 text-white">Menu</h5>
           </button>
           <div className="sidebar-logo text-white fw-bold">
-            {username !== null ? username : "CoursMate"}
+            {username !== null ? (
+              <div>
+                <img
+                  src={`${profile}`}
+                  alt=""
+                  width={"30px"}
+                  height={"30px"}
+                  style={{ borderRadius: "50%", margin: "10px" }}
+                />
+                {username}
+              </div>
+            ) : (
+              "CoursMate"
+            )}
           </div>
         </div>
         <ul
@@ -122,7 +137,7 @@ function Sidebar() {
               }`}
               onClick={handleLogOut}
             >
-              <NavLink to="/" onClick={playClickSound}>
+              <NavLink to="/" onClick={handleLogOut}>
                 <TbLogout2 className="fs-3 text-white icons" />
                 <span
                   className="ms-4 navbar-link ms-2 mb-5 text-danger fw-bold"
