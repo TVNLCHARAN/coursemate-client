@@ -5,16 +5,27 @@ import { RiComputerFill } from "react-icons/ri";
 import { GoHomeFill } from "react-icons/go";
 import { TbLogout2 } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
-
 import "./Sidebar.css";
+
 function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Create an Audio object
+  const clickSound = new Audio("/click.mp3");
+
   function handleLogOut() {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("username");
+    playClickSound();
   }
+
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
+    playClickSound();
+  };
+
+  const playClickSound = () => {
+    clickSound.play();
   };
 
   return (
@@ -26,7 +37,6 @@ function Sidebar() {
             <h5 className="mt-2 text-white">Menu</h5>
           </button>
           <div className="sidebar-logo text-white fw-bold">
-            {/* {jwtDecode(localStorage.getItem('user')).name} */}
             CourseMate
           </div>
         </div>
@@ -36,36 +46,31 @@ function Sidebar() {
           }`}
         >
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/home" className="sidebar-link">
-              {/* <GoHomeFill className='fs-3 text-white'/> */}
+            <NavLink to="/home" className="sidebar-link" onClick={playClickSound}>
               <img src="/favicons/home.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Home</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/sem" className="sidebar-link">
-              {/* <FaBookOpen className='fs-3 text-white'/> */}
+            <NavLink to="/sem" className="sidebar-link" onClick={playClickSound}>
               <img src="/favicons/book.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Semesters</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/domains" className="sidebar-link">
-              {/* <RiComputerFill className='fs-3 text-white'/> */}
+            <NavLink to="/domains" className="sidebar-link" onClick={playClickSound}>
               <img src="/favicons/computer.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Domains</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/contribution" className="sidebar-link">
-              {/* <GoHomeFill className='fs-3 text-white'/> */}
+            <NavLink to="/contribution" className="sidebar-link" onClick={playClickSound}>
               <img src="/favicons/star1.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Contributions</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/notifications" className="sidebar-link">
-              {/* <GoHomeFill className='fs-3 text-white'/> */}
+            <NavLink to="/notifications" className="sidebar-link" onClick={playClickSound}>
               <div style={{ display: "inline" }}>
                 <div className="notify"></div>
                 <img src="/favicons/message1.png" height={"32px"} alt="" />
@@ -74,8 +79,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/team" className="sidebar-link">
-              {/* <GoHomeFill className='fs-3 text-white'/> */}
+            <NavLink to="/team" className="sidebar-link" onClick={playClickSound}>
               <img src="/favicons/coding.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Web Team</span>
             </NavLink>
@@ -87,7 +91,7 @@ function Sidebar() {
               }`}
               onClick={handleLogOut}
             >
-              <NavLink to="/">
+              <NavLink to="/" onClick={playClickSound}>
                 <TbLogout2 className="fs-3 text-white icons" />
                 <span
                   className="ms-4 navbar-link ms-2 mb-5 text-danger fw-bold"
