@@ -12,6 +12,7 @@ import Team from "./components/Team/Team";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Notification from "./components/Notifications/Notification";
+import Contribution from "./components/Contribution/Contribution";
 
 function App() {
   const [folders, setFolders] = useState([]);
@@ -56,6 +57,7 @@ function App() {
         <Route path="/sem" element={<Sem folders={folders} />} />
         <Route path="/team" element={<Team />} />
         <Route path="/notifications" element={<Notification />} />
+        <Route path="/contribution" element={<Contribution />} />
       </Routes>
     </div>
   );
