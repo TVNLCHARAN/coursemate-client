@@ -168,7 +168,6 @@ function Content() {
         parentFolder: folderId || location.state.folderId,
         uploadedBy: userId,
       };
-      console.error(params);
 
       axios
         .post(

@@ -63,5 +63,6 @@
   padding: 20px;
 }
 
-#signInDiv {
+.coursmate-img {
+  mix-blend-mode: difference;
 }

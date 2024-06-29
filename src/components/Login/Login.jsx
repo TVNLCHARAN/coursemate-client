@@ -98,6 +98,7 @@ function Login() {
             height={"200px"}
             alt="Coursemate"
             style={{ borderRadius: "50%" }}
+            className="coursmate-img"
           />
         </div>
         <div className="login-right justify-content-center col-12 col-sm-12 col-md-6">
