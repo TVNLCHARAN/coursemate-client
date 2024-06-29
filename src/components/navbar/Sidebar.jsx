@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSolidCategory } from "react-icons/bi";
-import { FaBookOpen } from "react-icons/fa";
-import { RiComputerFill } from "react-icons/ri";
-import { GoHomeFill } from "react-icons/go";
 import { TbLogout2 } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
+import { jwtDecode } from "jwt-decode";
 
 function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
-  
-  // Create an Audio object
+  const [username, setUsername] = useState(null);
+
+  useEffect(() => {
+    try {
+      const email = jwtDecode(localStorage.getItem("user")).email;
+      setUsername(email.slice(0, 7).toUpperCase());
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   const clickSound = new Audio("/nav.aac");
 
   function handleLogOut() {
@@ -37,7 +44,7 @@ function Sidebar() {
             <h5 className="mt-2 text-white">Menu</h5>
           </button>
           <div className="sidebar-logo text-white fw-bold">
-            CourseMate
+            {username !== null ? username : "CoursMate"}
           </div>
         </div>
         <ul
@@ -46,31 +53,51 @@ function Sidebar() {
           }`}
         >
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/home" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/home"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <img src="/favicons/home.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Home</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/sem" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/sem"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <img src="/favicons/book.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Semesters</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/domains" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/domains"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <img src="/favicons/computer.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Domains</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/contribution" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/contribution"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <img src="/favicons/star1.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Contributions</span>
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/notifications" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/notifications"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <div style={{ display: "inline" }}>
                 <div className="notify"></div>
                 <img src="/favicons/message1.png" height={"32px"} alt="" />
@@ -79,7 +106,11 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="sidebar-item mt-3 text-start ms-2">
-            <NavLink to="/team" className="sidebar-link" onClick={playClickSound}>
+            <NavLink
+              to="/team"
+              className="sidebar-link"
+              onClick={playClickSound}
+            >
               <img src="/favicons/coding.png" height={"32px"} alt="" />
               <span className="ms-3 fw-bold">Web Team</span>
             </NavLink>
