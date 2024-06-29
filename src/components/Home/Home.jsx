@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import { NavLink } from "react-router-dom";
 import SideBar from "../navbar/Sidebar";
 import "./Home.css";
 
@@ -12,19 +10,14 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user") || true;
+    const storedUser = localStorage.getItem("user") || false;
     if (storedUser) {
-      // setUser(jwtDecode(JSON.parse(storedUser)));
-      setUser("charan");
+      setUser(storedUser);
     } else {
       navigate("/");
     }
   }, [navigate]);
 
-  function handleSignOut() {
-    localStorage.removeItem("user");
-    navigate("/");
-  }
   function handleOpenSem() {
     setIsClickedSem(true);
     setTimeout(() => {
@@ -40,13 +33,12 @@ function Home() {
 
   return (
     <div>
-      {true ? (
+      {user ? (
         <div className="img-container">
           <div className="blur">
             <SideBar />
             <div className="outer-container">
               <div className="content container-fluid d-flex flex-column align-items-center justify-content-center">
-                {/* <NavLink to="/sem" className="no-underline"> */}
                 <div
                   className={`categories ${
                     isClickedSem ? "expand-open" : ""
@@ -55,8 +47,6 @@ function Home() {
                 >
                   SEMESTERS
                 </div>
-                {/* </NavLink> */}
-                {/* <NavLink to="/domains" className="no-underline"> */}
                 <div
                   className={`categories ${
                     isClickedDomains ? "expand-open" : ""
@@ -65,7 +55,6 @@ function Home() {
                 >
                   DOMAINS
                 </div>
-                {/* </NavLink> */}
               </div>
             </div>
           </div>
