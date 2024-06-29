@@ -7,6 +7,7 @@ import Sidebar from "../navbar/Sidebar";
 
 const Contribution = () => {
   const [contributions, setContributions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchContributions = async () => {
     try {
@@ -19,6 +20,7 @@ const Contribution = () => {
           .sort((a, b) => b.totalUploaded - a.totalUploaded)
           .slice(0, 10);
         setContributions(sortedContributions);
+        setLoading(false);
       } else {
         toast.error("Failed to fetch contributions. Please try again later.");
       }
@@ -44,6 +46,15 @@ const Contribution = () => {
         return "favicons/medal.png";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner-leaderboard"></div>
+        <p className="lead text-white m-3 loading">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
