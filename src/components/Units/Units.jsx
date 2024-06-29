@@ -4,6 +4,7 @@ import axios from "axios";
 import Sidebar from "../navbar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import Resource from "../Resource/Resource";
+import { jwtDecode } from "jwt-decode";
 
 function Units({ folders }) {
   const location = useLocation();
@@ -30,7 +31,7 @@ function Units({ folders }) {
     }
 
     let timer;
-    const email = "n200232@rguktn.ac.in";
+    const email = jwtDecode(localStorage.getItem("user")).email;
     axios
       .post(
         "https://course-mate-server.onrender.com/user/getUserId",

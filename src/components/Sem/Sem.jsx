@@ -81,7 +81,7 @@ function Sem({ folders }) {
           </div>
         </>
       ) : (
-        <p className="display-1 text-center">You Have No Access</p>
+        <p className="display-1 text-center"></p>
       )}
     </div>
   );
