@@ -11,7 +11,7 @@ function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
   
   // Create an Audio object
-  const clickSound = new Audio("/click.mp3");
+  const clickSound = new Audio("/nav.aac");
 
   function handleLogOut() {
     localStorage.removeItem("jwtToken");
