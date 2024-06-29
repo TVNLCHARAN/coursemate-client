@@ -73,7 +73,7 @@ const Contribution = () => {
             </div>
             <div className="d-inline ms-2 text-end name-div">
               <p className="fw-bold col-8 d-inline text-start">
-                Name: {contribution.username}
+                {contribution.username}
               </p>
               <p className="col-4 d-inline text-end ms-auto">
                 {contribution.totalUploaded}
