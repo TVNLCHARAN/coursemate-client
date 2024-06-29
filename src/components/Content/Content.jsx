@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Content.css";
 import Sidebar from "../navbar/Sidebar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,10 +20,15 @@ function Content() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("user"));
-    setUser("charan");
+    const storedUser = localStorage.getItem("user") || false;
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      navigate("/");
+    }
     const email = "n200232@rguktn.ac.in";
     axios
       .post(
@@ -216,89 +221,97 @@ function Content() {
   }
 
   return (
-    <div>
-      <ToastContainer />
-      <div className="blur1"></div>
-      <div style={{ marginTop: "50px" }}>
-        <div className="content-img"></div>
+    <>
+      {user ? (
         <div>
-          <Sidebar />
-          <div className="outer-container-content">
-            <h1
-              className="display-3 text-center text-white blinking-text"
-              style={{ zIndex: 100 }}
-            >
-              {parentFolder}
-            </h1>
-            <div className="content-content text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
-              {delayedDocs.map((doc) => (
-                <div
-                  key={doc._id}
-                  className="content-div d-flex fw-bold text-white lead py-4 justify-content-between"
+          <ToastContainer />
+          <div className="blur1"></div>
+          <div style={{ marginTop: "50px" }}>
+            <div className="content-img"></div>
+            <div>
+              <Sidebar />
+              <div className="outer-container-content">
+                <h1
+                  className="display-3 text-center text-white blinking-text"
+                  style={{ zIndex: 100 }}
                 >
-                  <div className="img-div text-start ms-4 align-items-end">
-                    <img
-                      className="text-start"
-                      src={getImageSrc(doc.name)}
-                      alt=""
-                      height={"35px"}
-                    />
-                  </div>
-                  <div
-                    className="text-div text-start align-items-start"
-                    onClick={() => {
-                      window.location.href = `${doc.viewLink}`;
-                    }}
-                  >
-                    {doc.name.toUpperCase()}
-                  </div>
+                  {parentFolder}
+                </h1>
+                <div className="content-content text-center w-50 container-fluid d-flex flex-column align-items-center justify-content-center">
+                  {delayedDocs.map((doc) => (
+                    <div
+                      key={doc._id}
+                      className="content-div d-flex fw-bold text-white lead py-4 justify-content-between"
+                    >
+                      <div className="img-div text-start ms-4 align-items-end">
+                        <img
+                          className="text-start"
+                          src={getImageSrc(doc.name)}
+                          alt=""
+                          height={"35px"}
+                        />
+                      </div>
+                      <div
+                        className="text-div text-start align-items-start"
+                        onClick={() => {
+                          window.location.href = `${doc.viewLink}`;
+                        }}
+                      >
+                        {doc.name.toUpperCase()}
+                      </div>
 
-                  <div
-                    className="download-div text-end me-3 align-items-start"
-                    onClick={() => {
-                      window.location.href = `${doc.downloadLink}`;
-                    }}
-                  >
-                    <img
-                      className=""
-                      src="/favicons/download2.png"
-                      alt=""
-                      height={"40px"}
-                    />
-                  </div>
+                      <div
+                        className="download-div text-end me-3 align-items-start"
+                        onClick={() => {
+                          window.location.href = `${doc.downloadLink}`;
+                        }}
+                      >
+                        <img
+                          className=""
+                          src="/favicons/download2.png"
+                          alt=""
+                          height={"40px"}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="file-input-wrapper">
+                {isFileSet ? (
+                  <>
+                    <input
+                      type="file"
+                      className="file-input"
+                      id="file-input"
+                      accept=".pdf, .ppt, .pptx, .doc, .docx"
+                      onChange={handleFileChange}
+                    />
+                    <button className="custom-button" htmlFor="file-input">
+                      +
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className={`custom-button-submit ${
+                      isLoading ? "loading" : ""
+                    }`}
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? <div className="spinner"></div> : "Upload"}
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="file-input-wrapper">
-            {isFileSet ? (
-              <>
-                <input
-                  type="file"
-                  className="file-input"
-                  id="file-input"
-                  accept=".pdf, .ppt, .pptx, .doc, .docx"
-                  onChange={handleFileChange}
-                />
-                <button className="custom-button" htmlFor="file-input">
-                  +
-                </button>
-              </>
-            ) : (
-              <button
-                className={`custom-button-submit ${isLoading ? "loading" : ""}`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? <div className="spinner"></div> : "Upload"}
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
-    </div>
+      ) : (
+        <p className="display-1 text-white"></p>
+      )}
+    </>
   );
 }
 

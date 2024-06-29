@@ -3,10 +3,13 @@ import "./Notification.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../navbar/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const Notification = () => {
   const [loading, setLoading] = useState(true);
   const [isSlow, setIsSlow] = useState(false);
+  const [user, setUser] = useState(false);
+  const navigate = useNavigate();
   const [Notifications, setNotifications] = useState([
     {
       uploadedBy: "Loading...",
@@ -40,6 +43,12 @@ const Notification = () => {
     }
   };
   useEffect(() => {
+    const storedUser = localStorage.getItem("user") || false;
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      navigate("/");
+    }
     setTimeout(() => {
       setIsSlow(true);
     }, 2000);
@@ -63,44 +72,48 @@ const Notification = () => {
   }
   return (
     <>
-      <div>
-        <Sidebar />
-        <h1
-          className="display-3 text-center text-white blinking-text-notify"
-          style={{ zIndex: 100, marginTop: "60px" }}
-        >
-          Notifications
-        </h1>
-        <div className="blur-notify"></div>
-        {Notifications.map((Notification) => (
-          <div key={Notification._id} className="Notification-div">
-            <div className="Notification-content">
-              <p className="Notification-user">
-                Uploaded by: {Notification.uploadedBy}
-              </p>
-              <p>Name: {Notification.name}</p>
-              <p>{Notification.description}</p>
-              <p>
-                Link:{""}
-                <a
-                  href={Notification.rscLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "red" }}
-                >
-                  {Notification.rscLink}
-                </a>
-              </p>
+      {user ? (
+        <div>
+          <Sidebar />
+          <h1
+            className="display-3 text-center text-white blinking-text-notify"
+            style={{ zIndex: 100, marginTop: "60px" }}
+          >
+            Notifications
+          </h1>
+          <div className="blur-notify"></div>
+          {Notifications.map((Notification) => (
+            <div key={Notification._id} className="Notification-div">
+              <div className="Notification-content">
+                <p className="Notification-user">
+                  Uploaded by: {Notification.uploadedBy}
+                </p>
+                <p>Name: {Notification.name}</p>
+                <p>{Notification.description}</p>
+                <p>
+                  Link:{""}
+                  <a
+                    href={Notification.rscLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "red" }}
+                  >
+                    {Notification.rscLink}
+                  </a>
+                </p>
+              </div>
+              <br />
+              <div className="Notification-date">
+                <p style={{ fontSize: "1.2em" }}>
+                  Posted at: {formatTimestamp(Notification.uploadedAt)}
+                </p>
+              </div>
             </div>
-            <br />
-            <div className="Notification-date">
-              <p style={{ fontSize: "1.2em" }}>
-                Posted at: {formatTimestamp(Notification.uploadedAt)}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="display-1 text-white"></p>
+      )}
     </>
   );
 };

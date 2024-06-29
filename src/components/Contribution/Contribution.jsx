@@ -4,11 +4,13 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../navbar/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const Contribution = () => {
   const [contributions, setContributions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSlow, setIsSlow] = useState(false);
+  const navigate = useNavigate();
 
   const fetchContributions = async () => {
     try {
@@ -32,6 +34,12 @@ const Contribution = () => {
   };
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user") || false;
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      navigate("/");
+    }
     setTimeout(() => {
       setIsSlow(true);
     }, 2000);
@@ -69,41 +77,47 @@ const Contribution = () => {
 
   return (
     <>
-      <ToastContainer />
-      <div>
-        <Sidebar />
-        <h1
-          className="display-4 text-center text-light blinking-text-leaderboard"
-          style={{ fontSize: "60px", marginTop: "50px", zIndex: 1000 }}
-        >
-          LeaderBoard
-        </h1>
-        <div className="img-container-leaderboard"></div>
-        <div className="blur-notify"></div>
-        <div className="blur-notify"></div>
-        <div className="blur-notify"></div>
-        <div className="contributions-container">
-          {contributions.map((contribution, index) => (
-            <div key={contribution._id} className="contribution-div">
-              <img
-                className="medal-image"
-                src={getMedalImage(index)}
-                alt=""
-                height="40px"
-                width="40px"
-              />
-              <div className="name-div ms-3 ps-3">
-                <p className="fw-bold username">{contribution.username}</p>
-              </div>
-              <div className="totaluploaded-div ">
-                <p className="totaluploaded text-white fw-bold">
-                  {contribution.totalUploaded}
-                </p>
-              </div>
+      {user ? (
+        <>
+          <ToastContainer />
+          <div>
+            <Sidebar />
+            <h1
+              className="display-4 text-center text-light blinking-text-leaderboard"
+              style={{ fontSize: "60px", marginTop: "50px", zIndex: 1000 }}
+            >
+              LeaderBoard
+            </h1>
+            <div className="img-container-leaderboard"></div>
+            <div className="blur-notify"></div>
+            <div className="blur-notify"></div>
+            <div className="blur-notify"></div>
+            <div className="contributions-container">
+              {contributions.map((contribution, index) => (
+                <div key={contribution._id} className="contribution-div">
+                  <img
+                    className="medal-image"
+                    src={getMedalImage(index)}
+                    alt=""
+                    height="40px"
+                    width="40px"
+                  />
+                  <div className="name-div ms-3 ps-3">
+                    <p className="fw-bold username">{contribution.username}</p>
+                  </div>
+                  <div className="totaluploaded-div ">
+                    <p className="totaluploaded text-white fw-bold">
+                      {contribution.totalUploaded}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      ) : (
+        <p className="display-1 text-white"></p>
+      )}
     </>
   );
 };
