@@ -6,6 +6,7 @@ import Sidebar from "../navbar/Sidebar";
 
 const Notification = () => {
   const [loading, setLoading] = useState(true);
+  const [isSlow, setIsSlow] = useState(false);
   const [Notifications, setNotifications] = useState([
     {
       uploadedBy: "Loading...",
@@ -39,6 +40,9 @@ const Notification = () => {
     }
   };
   useEffect(() => {
+    setTimeout(() => {
+      setIsSlow(true);
+    }, 2000);
     fetchNotifications();
   }, []);
 
@@ -47,6 +51,13 @@ const Notification = () => {
       <div className="loading-container">
         <div className="loading-spinner-notification"></div>
         <p className="lead text-white m-3 loading">Loading...</p>
+        {isSlow ? (
+          <p className="text-white m-3 loading">
+            Server is Busy! Please wait...
+          </p>
+        ) : (
+          <p></p>
+        )}
       </div>
     );
   }
@@ -60,7 +71,6 @@ const Notification = () => {
         >
           Notifications
         </h1>
-        <div className="notifications-img"></div>
         <div className="blur-notify"></div>
         {Notifications.map((Notification) => (
           <div key={Notification._id} className="Notification-div">

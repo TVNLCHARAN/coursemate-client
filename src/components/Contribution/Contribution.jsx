@@ -8,6 +8,7 @@ import Sidebar from "../navbar/Sidebar";
 const Contribution = () => {
   const [contributions, setContributions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSlow, setIsSlow] = useState(false);
 
   const fetchContributions = async () => {
     try {
@@ -31,6 +32,9 @@ const Contribution = () => {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsSlow(true);
+    }, 2000);
     fetchContributions();
   }, []);
 
@@ -52,6 +56,13 @@ const Contribution = () => {
       <div className="loading-container1">
         <div className="loading-spinner-leaderboard"></div>
         <p className="lead text-white m-3 loading1">Loading...</p>
+        {isSlow ? (
+          <p className="text-white m-3 loading">
+            Server is Busy! Please wait...
+          </p>
+        ) : (
+          <p></p>
+        )}
       </div>
     );
   }

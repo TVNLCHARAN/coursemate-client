@@ -17,8 +17,12 @@ import Contribution from "./components/Contribution/Contribution";
 function App() {
   const [folders, setFolders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSlow, setIsSlow] = useState(false);
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsSlow(true);
+    }, 2000);
     const token = JSON.parse(localStorage.getItem("user"));
     axios
       .get("https://course-mate-server.onrender.com/folder/folders", {
@@ -41,6 +45,13 @@ function App() {
       <div className="loading-container">
         <div className="loading-spinner"></div>
         <p className="lead text-white m-3 loading">Loading...</p>
+        {isSlow ? (
+          <p className="text-white m-3 loading">
+            Server is Busy! Please wait...
+          </p>
+        ) : (
+          <p></p>
+        )}
       </div>
     );
   }
